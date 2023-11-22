@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 
 import '../../core/environment/environment.dart';
@@ -17,15 +19,14 @@ class InstagramAuthTokenFetcherDataSource
   Future<Either<CustomException, InstagramAuthTokenFetcherModel>>
       authTokenFetcher(
           {required InstagramAuthTokenFetcherFilter filter}) async {
-    final res = await _http.get(
-        '${Environment.instagramUrl}/oauth/access_token',
+    final res = await _http.get('${Environment.instagramUrl}/oauth/access_toke',
         queryParameters: filter.toMap());
 
     return res.fold((l) => Left(CustomException('Opss.. $l')), (r) {
       if (r.statusCode != 200) {
-        return Left(CustomException('Opss.. ${r.data.msg}'));
+        return Left(CustomException(
+            'Opss.. ${jsonDecode(r.data)['error']['message']}'));
       }
-
       return Right(InstagramAuthTokenFetcherModel.fromJson(r.data));
     });
   }
