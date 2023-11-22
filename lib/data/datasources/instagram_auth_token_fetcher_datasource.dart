@@ -19,7 +19,8 @@ class InstagramAuthTokenFetcherDataSource
   Future<Either<CustomException, InstagramAuthTokenFetcherModel>>
       authTokenFetcher(
           {required InstagramAuthTokenFetcherFilter filter}) async {
-    final res = await _http.get('${Environment.instagramUrl}/oauth/access_toke',
+    final res = await _http.get(
+        '${Environment.instagramUrl}/oauth/access_token',
         queryParameters: filter.toMap());
 
     return res.fold((l) => Left(CustomException('Opss.. $l')), (r) {
