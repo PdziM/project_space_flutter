@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import 'core/di/dependency_injection.dart';
@@ -57,9 +58,20 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'Astronomy Picture Of The Day',
             debugShowCheckedModeBanner: false,
+            locale: const Locale('pt', 'BR'),
+            supportedLocales: const [
+              Locale('pt', 'BR'),
+              Locale('en', 'US'),
+              Locale('es', 'US')
+            ],
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate
+            ],
             theme: AppTheme().lightThemeData(),
             darkTheme: AppTheme().darkThemeData(),
-            themeMode: state.isDarkModeOn ? ThemeMode.dark : ThemeMode.light,
+            themeMode: state.darkTheme ? ThemeMode.dark : ThemeMode.light,
             initialRoute: '/',
             routes: AppRoutes.routes,
           );

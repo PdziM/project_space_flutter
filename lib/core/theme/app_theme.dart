@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'app_colors.dart';
+
 class AppTheme {
   final IconThemeData _iconThemeDataLight =
       const IconThemeData(color: Colors.black54, size: 26);
@@ -8,9 +10,9 @@ class AppTheme {
       const IconThemeData(color: Colors.white, size: 26);
   final CardTheme _darkThemeCard = CardTheme(color: Colors.grey[800]!);
 
-  final LinearGradient appGradient = const LinearGradient(colors: [
-    Color(0xFF4887F5),
-    Color(0xff0b3d91),
+  static const LinearGradient appGradient = LinearGradient(colors: [
+    AppColors.primary200,
+    AppColors.primary100,
   ], begin: Alignment.topLeft, end: Alignment.bottomRight);
 
   final TextTheme _lightTextTheme = GoogleFonts.poppinsTextTheme().copyWith(
@@ -201,8 +203,8 @@ class AppTheme {
 
   ThemeData lightThemeData() => ThemeData(
       brightness: Brightness.light,
-      colorSchemeSeed: const Color(0xff0b3d91),
-      scaffoldBackgroundColor: const Color(0xffeeeeee),
+      colorSchemeSeed: AppColors.primary100,
+      scaffoldBackgroundColor: AppColors.bg100,
       useMaterial3: true,
       iconTheme: _iconThemeDataLight,
       textTheme: _lightTextTheme,
@@ -210,8 +212,8 @@ class AppTheme {
 
   ThemeData darkThemeData() => ThemeData(
       brightness: Brightness.dark,
-      colorSchemeSeed: const Color(0xff0b3d91),
-      scaffoldBackgroundColor: const Color(0xff1a1c19),
+      colorSchemeSeed: AppColors.primary100,
+      scaffoldBackgroundColor: AppColors.bg400,
       useMaterial3: true,
       iconTheme: _iconThemeDataDark,
       textTheme: _darkTextTheme,
