@@ -6,5 +6,5 @@ import '../models/astronomy_picture_day_model.dart';
 
 abstract class AstronomyPictureDayDataRepository {
   Future<Either<CustomException, AstronomyPictureDayModel>>
-      getAstronomyPictureDay({required AstronomyPictureDayFilter filter});
+      fetchAstronomyPictureDay({required AstronomyPictureDayFilter filter});
 }

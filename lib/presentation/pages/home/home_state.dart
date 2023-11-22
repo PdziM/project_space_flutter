@@ -23,7 +23,7 @@ class HomeState extends ChangeNotifier {
   void getAstronomyPictureDay() async {
     final res = await _context
         .read<AstronomyPictureDayRepository>()
-        .getAstronomyPictureDay(
+        .fetchAstronomyPictureDay(
             filter: AstronomyPictureDayFilter(apiKey: Environment.apiKey));
 
     res.fold((l) {

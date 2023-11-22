@@ -13,9 +13,9 @@ class AstronomyPictureDayUseCase implements AstronomyPictureDayRepository {
 
   @override
   Future<Either<CustomException, AstronomyPictureDayEntity>>
-      getAstronomyPictureDay(
+      fetchAstronomyPictureDay(
           {required AstronomyPictureDayFilter filter}) async {
-    final res = await _repository.getAstronomyPictureDay(filter: filter);
+    final res = await _repository.fetchAstronomyPictureDay(filter: filter);
 
     return res.fold((l) => Left(l), (r) async {
       return Right(AstronomyPictureDayEntity.fromModel(r));

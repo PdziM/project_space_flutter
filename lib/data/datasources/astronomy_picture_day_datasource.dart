@@ -14,7 +14,7 @@ class AstronomyPictureDayDataSource extends AstronomyPictureDayDataRepository {
 
   @override
   Future<Either<CustomException, AstronomyPictureDayModel>>
-      getAstronomyPictureDay(
+      fetchAstronomyPictureDay(
           {required AstronomyPictureDayFilter filter}) async {
     final res =
         await _http.get(Environment.apodUrl, queryParameters: filter.toMap());
