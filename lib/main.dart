@@ -7,9 +7,9 @@ import 'core/environment/environment.dart';
 import 'core/routes/app_routes.dart';
 import 'core/services/http_client_service.dart';
 import 'core/theme/app_theme.dart';
-import 'data/repositories/astronomy_picture_day_data_repository.dart';
+import 'data/repositories/astronomy_picture_day_fetcher_data_repository.dart';
 import 'data/repositories/instagram_auth_token_fetcher_data_repository.dart';
-import 'domain/repositories/astronomy_picture_day_repository.dart';
+import 'domain/repositories/astronomy_picture_day_fetcher_repository.dart';
 import 'domain/repositories/instagram_auth_token_fetcher_repository.dart';
 import 'main_state.dart';
 
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
             create: (_) => DependencyInjection.httpClientService),
 
         //DATA
-        Provider<AstronomyPictureDayDataRepository>(
+        Provider<AstronomyPictureDayFetcherDataRepository>(
             create: (_) => DependencyInjection.astronomyPictureDayDataSource),
 
         Provider<InstagramAuthTokenFetcherDataRepository>(
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
                 DependencyInjection.instagramAuthTokenFetcherDataSource),
 
         //USE CASES
-        Provider<AstronomyPictureDayRepository>(
+        Provider<AstronomyPictureDayFetcherRepository>(
             create: (_) => DependencyInjection.astronomyPictureDayUseCase),
         Provider<InstagramAuthTokenFetcherRepository>(
             create: (_) =>

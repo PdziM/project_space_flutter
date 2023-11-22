@@ -4,7 +4,7 @@ import '../../core/objects/filters/astronomy_picture_day_filter.dart';
 import '../../core/objects/exception/custom_exception.dart';
 import '../entities/astronomy_picture_day_entity.dart';
 
-abstract class AstronomyPictureDayRepository {
+abstract class AstronomyPictureDayFetcherRepository {
   Future<Either<CustomException, AstronomyPictureDayEntity>>
-      fetchAstronomyPictureDay({required AstronomyPictureDayFilter filter});
+      astronomyPictureDayFetcher({required AstronomyPictureDayFilter filter});
 }

@@ -1,13 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import '../../data/models/instagram_auth_token_fetcher_model.dart';
+import '../../data/models/instagram_auth_token_model.dart';
 
-class InstagramAuthTokenFetcherEntity {
+class InstagramAuthTokenEntity {
   final String accessToken;
   final String tokenType;
 
-  InstagramAuthTokenFetcherEntity({
+  InstagramAuthTokenEntity({
     required this.accessToken,
     required this.tokenType,
   });
@@ -19,8 +19,8 @@ class InstagramAuthTokenFetcherEntity {
     };
   }
 
-  factory InstagramAuthTokenFetcherEntity.fromMap(Map<String, dynamic> map) {
-    return InstagramAuthTokenFetcherEntity(
+  factory InstagramAuthTokenEntity.fromMap(Map<String, dynamic> map) {
+    return InstagramAuthTokenEntity(
       accessToken: map['accessToken'] as String,
       tokenType: map['tokenType'] as String,
     );
@@ -28,17 +28,16 @@ class InstagramAuthTokenFetcherEntity {
 
   String toJson() => json.encode(toMap());
 
-  factory InstagramAuthTokenFetcherEntity.fromJson(String source) =>
-      InstagramAuthTokenFetcherEntity.fromMap(
+  factory InstagramAuthTokenEntity.fromJson(String source) =>
+      InstagramAuthTokenEntity.fromMap(
           json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() =>
       'InstagramAuthTokenFetcherEntity(accessToken: $accessToken, tokenType: $tokenType)';
 
-  factory InstagramAuthTokenFetcherEntity.fromModel(
-      InstagramAuthTokenFetcherModel model) {
-    return InstagramAuthTokenFetcherEntity(
+  factory InstagramAuthTokenEntity.fromModel(InstagramAuthTokenModel model) {
+    return InstagramAuthTokenEntity(
         accessToken: model.accessToken, tokenType: model.tokenType);
   }
 }
