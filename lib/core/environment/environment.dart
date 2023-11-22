@@ -10,4 +10,6 @@ class Environment {
   static String get clientId => dotenv.env['CLIENT_ID'] ?? '';
   static String get clientSecret => dotenv.env['CLIENT_SECRET'] ?? '';
   static String get grantType => dotenv.env['GRANT_TYPE'] ?? '';
+  static String get instagramApiVersion =>
+      dotenv.env['INSTAGRAM_API_VERSION'] ?? '';
 }

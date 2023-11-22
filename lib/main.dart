@@ -9,8 +9,10 @@ import 'core/services/http_client_service.dart';
 import 'core/theme/app_theme.dart';
 import 'data/repositories/astronomy_picture_day_fetcher_data_repository.dart';
 import 'data/repositories/instagram_auth_token_fetcher_data_repository.dart';
+import 'data/repositories/instagram_post_creator_data_repository.dart';
 import 'domain/repositories/astronomy_picture_day_fetcher_repository.dart';
 import 'domain/repositories/instagram_auth_token_fetcher_repository.dart';
+import 'domain/repositories/instagram_post_creator_repository.dart';
 import 'main_state.dart';
 
 void main() async {
@@ -19,7 +21,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final bool isDarkModeOn = false;
   const MyApp({super.key});
 
   @override
@@ -39,6 +40,8 @@ class MyApp extends StatelessWidget {
         Provider<InstagramAuthTokenFetcherDataRepository>(
             create: (_) =>
                 DependencyInjection.instagramAuthTokenFetcherDataSource),
+        Provider<InstagramPostCreatorDataRepository>(
+            create: (_) => DependencyInjection.instagramPostCreatorDataSource),
 
         //USE CASES
         Provider<AstronomyPictureDayFetcherRepository>(
@@ -46,15 +49,17 @@ class MyApp extends StatelessWidget {
         Provider<InstagramAuthTokenFetcherRepository>(
             create: (_) =>
                 DependencyInjection.instagramAuthTokenFetcherUseCase),
+        Provider<InstagramPostCreatorRepository>(
+            create: (_) => DependencyInjection.instagramPostCreatorUseCase),
       ],
       child: Consumer<MainState>(
         builder: (_, state, __) {
           return MaterialApp(
-            title: 'Flutter Demo',
+            title: 'Astronomy Picture Of The Day',
             debugShowCheckedModeBanner: false,
             theme: AppTheme().lightThemeData(),
             darkTheme: AppTheme().darkThemeData(),
-            themeMode: isDarkModeOn ? ThemeMode.dark : ThemeMode.light,
+            themeMode: state.isDarkModeOn ? ThemeMode.dark : ThemeMode.light,
             initialRoute: '/',
             routes: AppRoutes.routes,
           );
