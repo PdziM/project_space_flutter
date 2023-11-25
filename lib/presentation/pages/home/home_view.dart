@@ -9,6 +9,7 @@ import '../../widget/buttons/custom_button.dart';
 import '../../widget/buttons/custom_icon_button.dart';
 import '../../widget/inputs/custom_text_field.dart';
 import '../../widget/label/title_subtitle_label.dart';
+import '../../widget/load/load.dart';
 import 'home_state.dart';
 
 class HomeView extends StatelessWidget {
@@ -23,6 +24,20 @@ class HomeView extends StatelessWidget {
       child: Consumer<HomeState>(
         builder: (_, state, __) {
           return Scaffold(
+            bottomNavigationBar: BottomNavigationBar(
+              // currentIndex: context.watch<MainState>().currentIndex,
+              // onTap: context.read<MainState>().setIndex,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(FontAwesomeIcons.house),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(FontAwesomeIcons.instagram),
+                  label: 'Instagram',
+                ),
+              ],
+            ),
             appBar: CustomAppBar(
               title: 'AstroPic',
               actions: [
@@ -35,43 +50,65 @@ class HomeView extends StatelessWidget {
                 )
               ],
             ),
-            body: SizedBox(
-              height: size.height,
-              width: size.width,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                child: Column(
-                  children: [
-                    const TitleSubtitleLabel(
-                      title: 'AstroPic',
-                      subtitle: 'Astronomy Picture of the Day',
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 10),
+                    child: Column(
+                      children: [
+                        const TitleSubtitleLabel(
+                          title: 'AstroPic',
+                          subtitle: 'Astronomy Picture of the Day',
+                        ),
+                        const Divider(),
+                        const SizedBox(height: 10),
+                        if (state.isLoading) ...[
+                          const Load(),
+                        ] else if (state.astronomyPictureDayEntity != null) ...[
+                          Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                    state.astronomyPictureDayEntity!.hdUrl),
+                                fit: BoxFit.cover,
+                              ),
+                              border: Border.all(width: 4),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Image.network(
+                                state.astronomyPictureDayEntity!.hdUrl),
+                          ),
+                          // Expanded(
+                          //   child: ImageViewContainer(
+                          //       imageLink:
+                          //           state.astronomyPictureDayEntity!.hdUrl),
+                          // ),
+                        ] else ...[
+                          Container(),
+                        ],
+                        CustomTextField(
+                          title: 'Pick date',
+                          hintText: 'Pick date',
+                          prefixIcon: const Icon(FontAwesomeIcons.calendar),
+                          controller: state.dateController,
+                          readOnly: true,
+                          onTap: state.datePicker,
+                          onChanged: state.setDate,
+                        ),
+                        const SizedBox(height: 10),
+                        CustomButton(
+                          onPressed: state.getAstronomyPictureDay,
+                          title: 'Pick',
+                          showRadius: true,
+                          loading: state.isLoading,
+                        ),
+                        const SizedBox(height: 10),
+                      ],
                     ),
-                    const Divider(),
-                    const SizedBox(height: 10),
-                    if (state.astronomyPictureDayEntity != null) ...[
-                      Image.network(state.astronomyPictureDayEntity!.hdUrl),
-                    ] else ...[
-                      Container(),
-                    ],
-                    CustomTextField(
-                      title: 'Pick date',
-                      hintText: 'Pick date',
-                      prefixIcon: const Icon(FontAwesomeIcons.calendar),
-                      controller: state.dateController,
-                      readOnly: true,
-                      onTap: state.datePicker,
-                      onChanged: state.setDate,
-                    ),
-                    const SizedBox(height: 10),
-                    CustomButton(
-                      onPressed: state.getAstronomyPictureDay,
-                      title: 'Pick',
-                      showRadius: true,
-                      loading: state.isLoading,
-                    )
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           );

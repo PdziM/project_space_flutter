@@ -18,7 +18,7 @@ class HomeState extends ChangeNotifier {
   }
 
   init() {
-    // getAstronomyPictureDay();
+    getAstronomyPictureDay();
     // getToken();
   }
 
