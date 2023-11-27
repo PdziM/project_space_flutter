@@ -105,6 +105,13 @@ class HomeView extends StatelessWidget {
                           loading: state.isLoading,
                         ),
                         const SizedBox(height: 10),
+                        CustomButton(
+                          onPressed: state.createContainerMedia,
+                          title: 'Pubish',
+                          showRadius: true,
+                          loading: state.isLoading,
+                        ),
+                        const SizedBox(height: 20),
                       ],
                     ),
                   ),

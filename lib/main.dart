@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'core/di/dependency_injection.dart';
 import 'core/environment/environment.dart';
+import 'core/packages/translator_package.dart';
 import 'core/routes/app_routes.dart';
 import 'core/services/http_client_service.dart';
 import 'core/theme/app_theme.dart';
@@ -33,6 +34,10 @@ class MyApp extends StatelessWidget {
         //SERVICES
         Provider<HttpClientService>(
             create: (_) => DependencyInjection.httpClientService),
+
+        //PACKAGES
+        Provider<TranslatorPackage>(
+            create: (_) => DependencyInjection.translatorPackage),
 
         //DATA
         Provider<AstronomyPictureDayFetcherDataRepository>(
