@@ -28,8 +28,6 @@ class HomeState extends ChangeNotifier {
     // getToken();
   }
 
-  // i7D6JbDbXSYp8nU
-
   AstronomyPictureDayEntity? astronomyPictureDayEntity;
   bool isLoadingAstronomyPictureDay = false;
 
