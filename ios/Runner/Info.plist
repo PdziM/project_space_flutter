@@ -45,5 +45,22 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+
+	<key>CFBundleURLTypes</key>
+	<array>
+	<dict>
+	<key>CFBundleURLSchemes</key>
+	<array>
+		<string>274923221781024</string>
+	</array>
+	</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>274923221781024</string>
+	<key>FacebookClientToken</key>
+	<string>d0366a7a3a2661eb0fa11c14128af10f</string>
+	<key>FacebookDisplayName</key>
+	<string>spacetrip_post</string>
 </dict>
 </plist>
