@@ -71,6 +71,7 @@ class HomeView extends StatelessWidget {
                               children: [
                                 Text(
                                   state.astronomyPictureDayEntity!.title,
+                                  textAlign: TextAlign.left,
                                   style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),

@@ -15,11 +15,10 @@ class TitleSubtitleLabel extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(title,
-            style: textTheme.headlineLarge!
-                .copyWith(color: Colors.black54, fontSize: 32),
+            style: textTheme.headlineLarge!.copyWith(fontSize: 33),
             textAlign: TextAlign.left),
         Text(subtitle,
-            style: textTheme.titleLarge!.copyWith(color: Colors.black45),
+            style: textTheme.titleLarge!.copyWith(fontSize: 23),
             textAlign: TextAlign.left),
       ],
     );
