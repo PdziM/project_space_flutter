@@ -4,11 +4,11 @@ import '../../data/models/astronomy_picture_day_model.dart';
 
 class AstronomyPictureDayEntity {
   final String copyright;
-  final String explanation;
+  String explanation;
   final String hdUrl;
   final String mediaType;
   final String serviceVersion;
-  final String title;
+  String title;
   final String url;
 
   AstronomyPictureDayEntity({

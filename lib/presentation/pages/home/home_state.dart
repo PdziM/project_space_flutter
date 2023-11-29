@@ -24,36 +24,49 @@ class HomeState extends ChangeNotifier {
   }
 
   init() async {
-    getAstronomyPictureDay();
+    fetchAstronomyPictureDay();
     // getToken();
   }
 
-  AstronomyPictureDayEntity? astronomyPictureDayEntity;
-  bool isLoading = false;
-  Translation? explanation;
+  // i7D6JbDbXSYp8nU
 
-  void getAstronomyPictureDay() async {
-    isLoading = true;
+  AstronomyPictureDayEntity? astronomyPictureDayEntity;
+  bool isLoadingAstronomyPictureDay = false;
+
+  void fetchAstronomyPictureDay() async {
+    isLoadingAstronomyPictureDay = true;
     notifyListeners();
 
     final res = await _context
         .read<AstronomyPictureDayFetcherRepository>()
         .astronomyPictureDayFetcher(
-            filter: AstronomyPictureDayFilter(apiKey: Environment.apiKey));
+            filter: AstronomyPictureDayFilter(
+                apiKey: Environment.apiKey, date: date));
 
     res.fold((l) {
       showCustomError(context: _context, message: 'Opss.. ${l.message}');
     }, (r) async {
       astronomyPictureDayEntity = r;
-      final res = await _context
-          .read<TranslatorPackage>()
-          .translateText(text: r.explanation, from: 'en', to: 'pt');
-      explanation = res.fold((l) => null, (r) => r);
-      print(explanation!.text);
+
+      astronomyPictureDayEntity!.explanation =
+          await translateText(text: r.explanation);
+      astronomyPictureDayEntity!.title = await translateText(text: r.title);
     });
 
-    isLoading = false;
+    isLoadingAstronomyPictureDay = false;
     notifyListeners();
+  }
+
+  Future<String> translateText(
+      {required String text, String? from = 'en', String? to = 'pt'}) async {
+    Translation? translatedText;
+    final res = await _context
+        .read<TranslatorPackage>()
+        .translateText(text: text, from: from!, to: to!);
+
+    res.fold((l) => null, (r) => translatedText = r);
+
+    return translatedText!.text;
   }
 
   InstagramAuthTokenEntity? auth;
@@ -76,7 +89,12 @@ class HomeState extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool isLoadingCreateMediaContainer = false;
+
   void createContainerMedia() async {
+    isLoadingCreateMediaContainer = true;
+    notifyListeners();
+
     final res = await _context
         .read<InstagramPostCreatorRepository>()
         .createMediaContainer(
@@ -89,18 +107,22 @@ class HomeState extends ChangeNotifier {
       // publishMediaContainer(accessToken: auth!.accessToken, id: r.id);
     });
 
+    isLoadingCreateMediaContainer = false;
     notifyListeners();
   }
 
   void publishMediaContainer(
       {required String accessToken, required String id}) async {
+    isLoadingCreateMediaContainer = true;
+    notifyListeners();
+
     final res = await _context
         .read<InstagramPostCreatorRepository>()
         .publishMediaContainer(
             filter: InstagramPostCreateFilter(
                 accessToken: accessToken,
                 creationId: id,
-                caption: explanation!.text,
+                caption: astronomyPictureDayEntity!.explanation,
                 imageUrl: astronomyPictureDayEntity!.hdUrl));
 
     res.fold((l) {
@@ -109,6 +131,7 @@ class HomeState extends ChangeNotifier {
       print(r.toJson());
     });
 
+    isLoadingCreateMediaContainer = false;
     notifyListeners();
   }
 
@@ -117,7 +140,7 @@ class HomeState extends ChangeNotifier {
   bool get isDateValid => date != null && date!.isNotEmpty;
 
   TextEditingController dateController = TextEditingController(
-      text: DateFormat('yyyy/MM/dd').format(DateTime.now()));
+      text: DateFormat('yyyy-MM-dd').format(DateTime.now()));
 
   void setDate(String? value) {
     date = value;
@@ -134,7 +157,7 @@ class HomeState extends ChangeNotifier {
         locale: const Locale('pt'));
 
     if (datePicker != null) {
-      String formattedDate = DateFormat('yyyy/MM/dd').format(datePicker);
+      String formattedDate = DateFormat('yyyy-MM-dd').format(datePicker);
       setDate(formattedDate);
     }
   }

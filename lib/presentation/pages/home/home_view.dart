@@ -10,6 +10,7 @@ import '../../widget/buttons/custom_icon_button.dart';
 import '../../widget/inputs/custom_text_field.dart';
 import '../../widget/label/title_subtitle_label.dart';
 import '../../widget/load/load.dart';
+import 'components/image_container.dart';
 import 'home_state.dart';
 
 class HomeView extends StatelessWidget {
@@ -17,8 +18,6 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
-
     return ChangeNotifierProvider(
       create: (_) => HomeState(context),
       child: Consumer<HomeState>(
@@ -63,31 +62,43 @@ class HomeView extends StatelessWidget {
                           subtitle: 'Astronomy Picture of the Day',
                         ),
                         const Divider(),
-                        const SizedBox(height: 10),
-                        if (state.isLoading) ...[
+                        if (state.isLoadingAstronomyPictureDay) ...[
                           const Load(),
                         ] else if (state.astronomyPictureDayEntity != null) ...[
-                          Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                    state.astronomyPictureDayEntity!.hdUrl),
-                                fit: BoxFit.cover,
-                              ),
-                              border: Border.all(width: 4),
-                              borderRadius: BorderRadius.circular(5),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: Column(
+                              children: [
+                                Text(
+                                  state.astronomyPictureDayEntity!.title,
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 10),
+                                ImageContainer(
+                                    imageLink:
+                                        state.astronomyPictureDayEntity!.hdUrl),
+                                const SizedBox(height: 10),
+                                Text(
+                                  state.astronomyPictureDayEntity!.explanation,
+                                  textAlign: TextAlign.justify,
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w300),
+                                ),
+                              ],
                             ),
-                            child: Image.network(
-                                state.astronomyPictureDayEntity!.hdUrl),
                           ),
-                          // Expanded(
-                          //   child: ImageViewContainer(
-                          //       imageLink:
-                          //           state.astronomyPictureDayEntity!.hdUrl),
-                          // ),
-                        ] else ...[
-                          Container(),
                         ],
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 10),
+                    child: Column(
+                      children: [
                         CustomTextField(
                           title: 'Pick date',
                           hintText: 'Pick date',
@@ -99,19 +110,18 @@ class HomeView extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         CustomButton(
-                          onPressed: state.getAstronomyPictureDay,
+                          onPressed: state.fetchAstronomyPictureDay,
                           title: 'Pick',
                           showRadius: true,
-                          loading: state.isLoading,
+                          loading: state.isLoadingAstronomyPictureDay,
                         ),
                         const SizedBox(height: 10),
                         CustomButton(
                           onPressed: state.createContainerMedia,
                           title: 'Pubish',
                           showRadius: true,
-                          loading: state.isLoading,
+                          loading: state.isLoadingCreateMediaContainer,
                         ),
-                        const SizedBox(height: 20),
                       ],
                     ),
                   ),
