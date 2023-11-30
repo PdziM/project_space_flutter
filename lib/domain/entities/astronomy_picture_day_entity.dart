@@ -3,7 +3,7 @@ import 'dart:convert';
 import '../../data/models/astronomy_picture_day_model.dart';
 
 class AstronomyPictureDayEntity {
-  final String copyright;
+  final String? copyright;
   String explanation;
   final String hdUrl;
   final String mediaType;
@@ -12,7 +12,7 @@ class AstronomyPictureDayEntity {
   final String url;
 
   AstronomyPictureDayEntity({
-    required this.copyright,
+    this.copyright,
     required this.explanation,
     required this.hdUrl,
     required this.mediaType,
@@ -35,7 +35,7 @@ class AstronomyPictureDayEntity {
 
   factory AstronomyPictureDayEntity.fromMap(Map<String, dynamic> map) {
     return AstronomyPictureDayEntity(
-      copyright: map['copyright'] as String,
+      copyright: map['copyright'] != null ? map['copyright'] as String : null,
       explanation: map['explanation'] as String,
       hdUrl: map['hdurl'] as String,
       mediaType: map['media_type'] as String,

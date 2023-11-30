@@ -13,8 +13,8 @@ import '../../widget/load/load.dart';
 import 'components/image_container.dart';
 import 'home_state.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {

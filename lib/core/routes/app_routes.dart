@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../presentation/pages/home/home_view.dart';
-import '../../presentation/pages/splash/splash_view.dart';
+import '../../presentation/pages/facebook/login_page.dart';
+import '../../presentation/pages/home/home_page.dart';
+import '../../presentation/pages/splash/splash_page.dart';
 
 class AppRoutes {
   static final Map<String, Widget Function(BuildContext)> routes = {
-    '/': (context) => const SplashView(),
-    '/home': (context) => const HomeView(),
+    '/': (context) => const SplashPage(),
+    '/home': (context) => const HomePage(),
+    '/login': (context) => const LoginPage(),
   };
 }

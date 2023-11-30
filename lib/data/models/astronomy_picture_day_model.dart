@@ -1,5 +1,5 @@
 class AstronomyPictureDayModel {
-  final String copyright;
+  final String? copyright;
   final String explanation;
   final String hdUrl;
   final String mediaType;

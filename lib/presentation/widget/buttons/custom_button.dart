@@ -14,7 +14,8 @@ class CustomButton extends StatelessWidget {
       this.child,
       this.addMargin,
       this.showRadius,
-      this.loading});
+      this.loading,
+      this.iconData});
 
   final VoidCallback? onPressed;
   final String title;
@@ -26,6 +27,7 @@ class CustomButton extends StatelessWidget {
   final bool? addMargin;
   final bool? showRadius;
   final bool? loading;
+  final IconData? iconData;
 
   @override
   Widget build(BuildContext context) {
@@ -54,13 +56,22 @@ class CustomButton extends StatelessWidget {
                     child: loading == true
                         ? const Center(
                             child: CircularProgressIndicator.adaptive())
-                        : Text(
-                            maxLines: 1,
-                            title.toUpperCase(),
-                            style: TextStyle(
-                                color: textColor ?? Colors.white,
-                                fontSize: fontSize ?? 16,
-                                fontWeight: FontWeight.bold),
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (iconData != null) ...[
+                                Icon(iconData, color: Colors.white, size: 23),
+                                const SizedBox(width: 10),
+                              ],
+                              Text(
+                                maxLines: 1,
+                                title.toUpperCase(),
+                                style: TextStyle(
+                                    color: textColor ?? Colors.white,
+                                    fontSize: fontSize ?? 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           ),
                   ),
                   addMargin == true ? Container(height: 8) : Container()

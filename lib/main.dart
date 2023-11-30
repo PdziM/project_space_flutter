@@ -77,7 +77,7 @@ class MyApp extends StatelessWidget {
             theme: AppTheme().lightThemeData(),
             darkTheme: AppTheme().darkThemeData(),
             themeMode: state.darkTheme ? ThemeMode.dark : ThemeMode.light,
-            initialRoute: '/',
+            initialRoute: '/login',
             routes: AppRoutes.routes,
           );
         },
